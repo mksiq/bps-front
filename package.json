@@ -20,5 +20,16 @@
   "bugs": {
     "url": "https://github.com/mksiq/bps-front/issues"
   },
-  "homepage": "https://github.com/mksiq/bps-front#readme"
+  "homepage": "https://github.com/mksiq/bps-front#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.15.0",
+    "eslint-config-google": "^0.14.0"
+  },
+  "type": "module"
 }
