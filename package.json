@@ -1,0 +1,24 @@
+{
+  "name": "bps-front",
+  "version": "1.0.0",
+  "description": "Banana Photo Storage",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mksiq/bps-front.git"
+  },
+  "keywords": [
+    "photo",
+    "storage",
+    "nodejs"
+  ],
+  "author": "Maickel Siqueira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mksiq/bps-front/issues"
+  },
+  "homepage": "https://github.com/mksiq/bps-front#readme"
+}
