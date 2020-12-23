@@ -3,7 +3,7 @@ import express from 'express';
 const router = new express.Router();
 
 router.get('/login', (req, res)=>{
-  res.render('photo/public');
+  res.render('user/login');
 });
 
 router.get('/sign-up', (req, res)=>{
@@ -12,7 +12,7 @@ router.get('/sign-up', (req, res)=>{
 });
 
 router.get('/logout', (req, res)=>{
-  res.render('photo/new-photo');
+  res.redirect('/');
 });
 
 export default router;
