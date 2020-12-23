@@ -4,6 +4,8 @@ import handlebars from 'express-handlebars';
 import bodyParser from 'body-parser';
 
 import general from './controller/general.js';
+import photoController from './controller/photo.js';
+import userController from './controller/user.js';
 
 dotenv.config({path: './config/keys.env'});
 
@@ -38,6 +40,8 @@ function onHttpStart() {
 }
 
 app.use('/', general);
+app.use('/', photoController);
+app.use('/', userController);
 
 app.use(express.static('resources'));
 
