@@ -28,7 +28,7 @@ router.post('/login', (req, res) => {
   axios.post(url, {email: email, password: password})
       .then((response) => {
         const token = response.headers.authorization;
-        const user = {email: email, logged: true};
+        const user = {email: email, logged: true, token: token};
         req.session.user = user;
         axios.get(`${process.env.URL}/users/email?value=${email}`,
             {headers: {'Authorization': token}})

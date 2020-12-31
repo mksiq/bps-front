@@ -1,20 +1,34 @@
+/* eslint-disable valid-jsdoc */
+/**
+ Photo prototype
+ matches:
+  private Integer id;
+  private String fileName;
+  private Integer width;
+  private Integer height;
+  private Double price;
+  private LocalDate date;
+  private String title;
+  private Integer downloads;
+  private Set<Tag> tags = new HashSet<>();
+  private User user;
+ **/
 class Photo {
   constructor(id, title, userId, price, tagsString) {
     this.id = id;
-    this.filename = "";
+    this.filename = '';
     this.width = 0;
     this.height = 0;
     this.downloads = 0;
     this.title = title;
-    this.user = { id: userId };
-    //console.log(tagsString);
-
+    this.user = {id: userId};
+    // creates an array tags object out of a string
     const tags = tagsString.split(/[ ,\.#]/);
-    console.log(tags)
     this.tags = [];
-    tags.forEach(tag => this.tags.push({ tag: tag }));
+    tags.forEach((tag) => this.tags.push({tag: tag}));
   }
 
+  /** returns json of this object */
   getJson() {
     return {
       filename: this.filename,
@@ -23,22 +37,9 @@ class Photo {
       download: this.downloads,
       title: this.title,
       user: this.user,
-      tags: this.tags
+      tags: this.tags,
     };
   }
 }
-export default Photo;
 
-// getJson() {
-//   return JSON.stringify(
-//     {
-//     id: this.id,
-//     filename: this.id,
-//     width: this.width,
-//     height: this.height,
-//     download: this.downloads,
-//     title: this.title,
-//     userId: this.user,
-//     tags: this.tags
-//   });
-// }
+export default Photo;

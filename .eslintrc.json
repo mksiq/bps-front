@@ -11,5 +11,7 @@
         "sourceType": "module"
     },
     "rules": {
+        "require-jsdoc" : 0,
+        "max-len" : [1, 100, 4]
     }
 }
