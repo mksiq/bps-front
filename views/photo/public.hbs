@@ -2,13 +2,14 @@
   <div class="h2 text-center">Public Pictures</div>
   <div class="row">
     {{#each photos}}
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6 pt-4">
       <div class="card">
         <img class="card-img-top" src="{{image}}" alt="Picture: {{title}}">
-        <div class="card-body text-center">
+        <span class="small text-muted text-right mr-4">Uploaded by Maickel</span>
+        <div class="card-body text-center pt-0">          
           <h5 class="card-title text-center">{{title}}</h5>
           <p class="card-text small text-center">Size {{width}}x{{height}} | Downloads: {{downloads}} | Credits: {{price}}</p>
-          <a href="#" class="btn btn-primary">Get it!</a>
+          <a href="#" class="btn btn-primary">Get it!</a> 
         </div>
       </div>
     </div>
