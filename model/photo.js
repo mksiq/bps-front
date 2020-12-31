@@ -19,6 +19,7 @@ class Photo {
     this.filename = '';
     this.width = 0;
     this.height = 0;
+    this.price = parseFloat(price);
     this.downloads = 0;
     this.title = title;
     this.user = {id: userId};
@@ -38,6 +39,7 @@ class Photo {
       title: this.title,
       user: this.user,
       tags: this.tags,
+      price: this.price,
     };
   }
 }

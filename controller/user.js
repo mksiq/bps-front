@@ -12,8 +12,26 @@ router.get('/sign-up', (req, res) => {
 });
 
 router.get('/account', (req, res) => {
-  res.render('user/account',
-      {});
+  const user = req.session.user;
+  if (user) {
+    const url = `${process.env.URL}/users/${user.id}`;
+    axios.get(url, {headers: {'Authorization': user.token}}).then((response) => {
+      const photos = response.data.photos.map((photo) => {
+        /** Replace picture by its thumbnail */
+        const slashIndex = photo.fileName.lastIndexOf('/');
+        photo.fileName = photo.fileName.substring(0, slashIndex + 1) +
+         'th_' +
+         photo.fileName.substring(slashIndex + 1, photo.fileName.length);
+        return photo;
+      });
+      res.render('user/account',
+          {
+            photos: photos,
+          });
+    }).catch((err) => console.log(err));
+  } else {
+    res.redirect('/');
+  }
 });
 
 router.get('/logout', (req, res) => {
