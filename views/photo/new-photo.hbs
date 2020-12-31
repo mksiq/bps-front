@@ -17,7 +17,7 @@
         <div class="form-group">
           <label for="tags">Tags</label>
           <input class="form-control" name="tags" id="tags" type="text"
-            placeholder="Enter Tags, separate words with space." />
+            placeholder="Enter Tags, separate words with space." required />
         </div>
       </div>
     </div>
@@ -25,13 +25,13 @@
       <div class="col-12 col-md-6">
         <div class="form-group">
           <label for="picture">Picture</label>
-          <input type="file" class="form-control-file" id="picture" name="picture" accept="image/*">        
+          <input type="file" class="form-control-file" id="picture" name="picture" accept="image/*" required>        
         </div>
       </div>
       <div class="col-12 col-md-6">
         <label for="price">Price</label>
         <input class="form-control" name="price" type="number" id="price" placeholder="Enter price"
-          value="{{product.price}}" required />
+          value="{{product.price}}" step="0.01" required />
         {{#if validation.price}}
         <small for="price" class="text-danger mt-0">{{validation.price}}</small>
         {{/if}}

@@ -1,5 +1,4 @@
 import express from 'express';
-import photos from '../mock/pictures.js';
 import axios from 'axios';
 import fs from 'fs';
 import FormData from 'form-data';
@@ -39,7 +38,8 @@ router.get('/photo/manage', (req, res) => {
 router.post('/insert-photo', (req, res) => {
   const user = req.session.user;
   if (user) {
-    const photo = new Photo(0, req.body.title, user.id, req.body.price, req.body.tags);
+    const {title, price, tags} = req.body;
+    const photo = new Photo(0, title, user.id, price, tags);
     const json = photo.getJson();
     const url = `${process.env.URL}/photos`;
     const file = req.files;
@@ -50,25 +50,30 @@ router.post('/insert-photo', (req, res) => {
           const location = response.headers.location;
           // extracts id from location in response
           const photoId = location.substring(location.lastIndexOf('/') + 1);
-          file.picture.mv(`resources/temp/temp.jpg`).then( () => { 
+          file.picture.mv(`resources/temp/temp.jpg`).then(() => {
             const newFile = fs.createReadStream('resources/temp/temp.jpg');
             const fd = new FormData();
             fd.append('file', newFile);
             axios.post(`${url}/upload/${photoId}`, fd,
-                {headers:
-                  {'Authorization': token,
-                    'Content-Type': 'multipart/form-data',
-                    ...fd.getHeaders(),
-                  }})
-                  .then((resp) => {
-                    res.render('photo/public',
-                    {
-                      photos: photos,
-                    });
-                  }).catch((err) => console.log(err));
-                });
-              }).catch((err) => console.log(err));
-          }
+                {
+                  headers:
+                      {
+                        'Authorization': token,
+                        'Content-Type': 'multipart/form-data',
+                        ...fd.getHeaders(),
+                      },
+                })
+                .then((resp) => {
+                  res.render('photo/public',
+                      {
+                        // photos: photos,
+                      });
+                }).catch((err) => console.log(err));
+          });
+        }).catch((err) => console.log(err));
+  } else {
+    res.redirect('/');
+  }
 });
 
 export default router;

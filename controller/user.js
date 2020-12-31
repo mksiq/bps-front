@@ -61,7 +61,18 @@ router.post('/login', (req, res) => {
               console.error(err.status);
               console.error(err.error);
             });
-      }).catch((err) => console.error(err));
+      }).catch((err) => {
+        console.error(err);
+        const validation = {};
+        validation.error = 'Invalid email or password';
+        const input = {};
+        input.email = email;
+        input.password = password;
+        res.render('user/login', {
+          validation: validation,
+          loginValues: input,
+        });
+      });
 });
 
 export default router;

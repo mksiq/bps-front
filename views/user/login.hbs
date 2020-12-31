@@ -7,9 +7,9 @@
         <div class="form-group ">
           <label for="userEmail">E-mail</label>
           <input class="form-control" type="text" name="userEmail" size="30" placeholder="Enter e-mail"
-            value="{{loginValues.userEmail}}" />
-          {{#if validation.userEmail}}
-          <label for="userEmail" class="text-danger mt-0">{{validation.userEmail}}</label>
+            value="{{loginValues.email}}" required />
+          {{#if validation.error}}
+          <label for="userEmail" class="text-danger mt-0">{{validation.error}}</label>
           {{/if}}
         </div>
       </div>
@@ -19,10 +19,7 @@
         <div class="form-group">
           <label for="password">Password</label>
           <input class="form-control" type="password" name="password" size="30" placeholder="Enter Password"
-            value="{{loginValues.password}}" />
-          {{#if validation.password}}
-          <label for="userEmail" class="text-danger mt-0">{{validation.password}}</label>
-          {{/if}}
+            value="{{loginValues.password}}" required />
         </div>
       </div>
     </div>
