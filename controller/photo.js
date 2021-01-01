@@ -10,8 +10,7 @@ const router = new express.Router();
 router.get('/public', (req, res) => {
   const url = `${process.env.URL}/photos`;
   axios.get(url).then((response) => {
-    console.log(response.data);
-    const photos = '';
+    const photos = response.data;
     res.render('photo/public',
         {
           photos: photos,
@@ -25,10 +24,22 @@ router.get('/publish-photo', (req, res) => {
       });
 });
 
-router.get('/photo/manage', (req, res) => {
-  res.render('photo/manage-photo',
-      {
-      });
+router.get('/photo/manage/:id', (req, res) => {
+  const user = req.session.user;
+  const url = `${process.env.URL}/photos/${req.params.id}`;
+  if (user) {
+    const token = req.session.user.token;
+    axios.get(url, {headers: {'Authorization': token}})
+        .then((response) => {
+          const photo = response.data;
+          res.render('photo/manage-photo',
+              {
+                photo: photo,
+              });
+        }).catch((err) => {});
+  } else {
+    res.redirect('/');
+  }
 });
 /**
  *  This is incredibly inefficient, I am saving on nodejs server then sending
