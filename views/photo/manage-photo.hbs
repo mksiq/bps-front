@@ -1,7 +1,7 @@
 <div class="container">
   <br>
   <div class="h2 text-center mt-2">Manage photo:</div>
-  <form action="/insert-photo" method="POST" enctype="multipart/form-data">
+  <form action="/update-photo" method="POST" enctype="multipart/form-data">
     <div class="form-row">
       <div class="col-12 col-md-6">
         <div class="form-group">
@@ -23,12 +23,6 @@
     </div>
     <div class="form-row">
       <div class="col-12 col-md-6">
-        <div class="form-group">
-          <label for="picture">Picture</label>
-          <input type="file" class="form-control-file" id="picture" name="picture" accept="image/*">
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
         <label for="servings">Price</label>
         <input class="form-control" name="price" type="number" id="price" placeholder="Enter price"
           value="{{photo.price}}" required />
@@ -36,11 +30,11 @@
         <small for="servings" class="text-danger mt-0">{{validation.price}}</small>
         {{/if}}
       </div>
+      <div class="col-12 col-md-6">
+          <label class="text-light">.<input class="form-control" name="id" id="id" type="number"
+           value="{{photo.id}}" hidden required /></label>
+          <input type="submit" class="btn btn-success form-control" value="Update"></div>
     </div>
     <br>
-    <div class="row">
-      <div class="col-6"><input type="submit" class="btn btn-success form-control" value="Update"></div>
-      <div class="col-6"><a href="/photo/delete" class="btn btn-danger form-control" >Delete</a></div>
-    </div>
   </form>
 </div>

@@ -48,6 +48,27 @@ router.get('/photo/manage/:id', (req, res) => {
     res.redirect('/');
   }
 });
+
+router.post('/update-photo', (req, res) => {
+  const user = req.session.user;
+  if (user) {
+    const {id, title, price, tags } = req.body;
+    const photo = new Photo(id, title, user.id, price, tags);
+    const json = photo.getJson();
+    const url = `${process.env.URL}/photos/${photo.id}`;
+    const token = req.session.user.token;
+    axios.put(url, json ,{headers: {'Authorization': token}})
+        .then((response) => {
+          res.redirect('/account');
+        }).catch((err) => {
+          console.error(err);
+          res.redirect('/');
+        });
+  } else {
+    res.redirect('/');
+  }
+});
+
 /**
  *  This is incredibly inefficient, I am saving on nodejs server then sending
  * it to the Java Server. It should either be refactored to Java deal with all
