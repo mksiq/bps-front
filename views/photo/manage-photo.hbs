@@ -15,9 +15,9 @@
       </div>
       <div class="col-12 col-md-6">
         <div class="form-group">
-          <label for="tags">Tags</label>
+          <label for="tags ">Tags</label>
           <input class="form-control" name="tags" id="tags" type="text"
-            placeholder="Enter Tags, separate words with space." />
+            placeholder="Enter Tags, separate words with space." value="{{photo.tags}}" required />
         </div>
       </div>
     </div>
@@ -31,7 +31,7 @@
       <div class="col-12 col-md-6">
         <label for="servings">Price</label>
         <input class="form-control" name="price" type="number" id="price" placeholder="Enter price"
-          value="{{product.price}}" required />
+          value="{{photo.price}}" required />
         {{#if validation.price}}
         <small for="servings" class="text-danger mt-0">{{validation.price}}</small>
         {{/if}}

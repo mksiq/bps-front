@@ -11,6 +11,9 @@ router.get('/public', (req, res) => {
   const url = `${process.env.URL}/photos`;
   axios.get(url).then((response) => {
     const photos = response.data;
+    photos.forEach( (photo) => {
+      photo.tags = tagsToString(photo.tags);
+    });
     res.render('photo/public',
         {
           photos: photos,
@@ -32,11 +35,15 @@ router.get('/photo/manage/:id', (req, res) => {
     axios.get(url, {headers: {'Authorization': token}})
         .then((response) => {
           const photo = response.data;
+          photo.tags = tagsToString(photo.tags);
           res.render('photo/manage-photo',
               {
                 photo: photo,
               });
-        }).catch((err) => {});
+        }).catch((err) => {
+          console.error(err);
+          res.redirect('/');
+        });
   } else {
     res.redirect('/');
   }
@@ -75,10 +82,7 @@ router.post('/insert-photo', (req, res) => {
                       },
                 })
                 .then((resp) => {
-                  res.render('photo/public',
-                      {
-                        // photos: photos,
-                      });
+                  res.redirect('/account');
                 }).catch((err) => console.log(err));
           });
         }).catch((err) => console.log(err));
@@ -86,5 +90,18 @@ router.post('/insert-photo', (req, res) => {
     res.redirect('/');
   }
 });
+
+function tagsToString(tags) {
+  tags.sort((a, b) => (a.tag > b.tag) ? 1 : ((b.tag > a.tag) ? -1 : 0));
+  tags = tags.map( (tag) => {
+    if (tag && tag != '') {
+      return tag.tag;
+    }
+  }).join(' ');
+  while (tags[0] === ' ') {
+    tags = tags.substring(1);
+  }
+  return tags;
+}
 
 export default router;

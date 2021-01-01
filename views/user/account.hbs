@@ -6,11 +6,8 @@
     <div class="row">
       <div class="col-12 col-md-8">
         <div class="container">
-          {{#if emptyPhoto}}
-          <br>
-          <h2 class="text-center">You don't have any Photos.</h2>
-          <h2 class="text-center">Publish some.</h2>
-          {{else}}
+          {{#if photos}}
+
           <table class="table table-hover">
             <thead>
               <tr class="row">
@@ -22,13 +19,6 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="row">
-                <th class="col-2 "><img src="temp/banana.jpg" alt="Title" class="img-thumbnail"></th>
-                <th class="col-6 col-md-4 ">Lonely Banana</th>
-                <th class="col-2 ">2</th>
-                <th class="col-2 ">5.50</th>
-                <th class="col-2 "><a href="/photo/manage" class="btn btn-primary">Manage</a></th>
-              </tr>
               {{#each photos}}
               <tr class="row ">
                 <th class="col-2 "><img src="{{fileName}}" alt="Title: {{title}}" class="img-thumbnail"></th>
@@ -40,6 +30,10 @@
               {{/each}}
             </tbody>
           </table>
+          {{else}}
+            <br>
+            <h2 class="text-center">You don't have any Photos.</h2>
+            <h2 class="text-center">Publish some.</h2>
           {{/if}}
         </div>
       </div>
