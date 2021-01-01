@@ -6,11 +6,11 @@
     <div class="form-row">
       <div class="col-12 col-md-6">
         <div class="form-group">
-          <label for="userName">User Name</label>
-          <input name="userName" class="form-control" type="text" id="first-name" size="30"
-            placeholder="Enter First Name" value="{{signUpValues.userName}}" />
-          {{#if validationSign.userName}}
-          <small for="userName" class="text-danger mt-0">{{validationSign.userName}}</small>
+          <label for="username">User Name</label>
+          <input name="username" class="form-control" type="text" id="first-name" size="30"
+            placeholder="Enter First Name" value="{{signUpValues.username}}" required/>
+          {{#if validationSign.username}}
+          <small for="username" class="text-danger mt-0">{{validationSign.username}}</small>
           {{/if}}
         </div>
       </div>
@@ -18,7 +18,7 @@
         <div class="form-group">
           <label for="email">e-mail</label>
           <input class="form-control" name="email" type="text" id="email" size="30" placeholder="Enter e-mail"
-            value="{{signUpValues.email}}" />
+            value="{{signUpValues.email}}" required/>
           {{#if validationSign.email}}
           <small for="email" class="text-danger mt-0">{{validationSign.email}}</small>
           {{/if}}
@@ -30,7 +30,7 @@
         <div class="form-group">
           <label for="password">Password</label>
           <input class="form-control" name="password" type="password" id="password" size="30"
-            placeholder="Enter Password" value="{{signUpValues.password}}" />
+            placeholder="Enter Password" value="{{signUpValues.password}}" required/>
           {{#if validationSign.password}}
           <small for="firstName" class="text-danger mt-0">{{validationSign.password}}</small>
           {{/if}}
@@ -40,7 +40,7 @@
         <div class="form-group">
           <label for="confirm-password">Confirm Password</label>
           <input class="form-control" name="confirmPassword" type="password" id="confirm-password" size="30"
-            placeholder="Re-enter Password" value="{{signUpValues.confirmPassword}}" />
+            placeholder="Re-enter Password" value="{{signUpValues.confirmPassword}}" required/>
           {{#if validationSign.confirmPassword}}
           <small for="firstName" class="text-danger mt-0">{{validationSign.confirmPassword}}</small>
           {{/if}}

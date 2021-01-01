@@ -52,12 +52,12 @@ router.get('/photo/manage/:id', (req, res) => {
 router.post('/update-photo', (req, res) => {
   const user = req.session.user;
   if (user) {
-    const {id, title, price, tags } = req.body;
+    const {id, title, price, tags} = req.body;
     const photo = new Photo(id, title, user.id, price, tags);
     const json = photo.getJson();
     const url = `${process.env.URL}/photos/${photo.id}`;
     const token = req.session.user.token;
-    axios.put(url, json ,{headers: {'Authorization': token}})
+    axios.put(url, json, {headers: {'Authorization': token}})
         .then((response) => {
           res.redirect('/account');
         }).catch((err) => {

@@ -1,14 +1,75 @@
 import express from 'express';
-const router = new express.Router();
 import axios from 'axios';
+import User from '../model/user.js';
+
+const router = new express.Router();
 
 router.get('/login', (req, res) => {
   res.render('user/login');
 });
 
 router.get('/sign-up', (req, res) => {
-  res.render('user/sign-up',
-      {});
+  const user = req.session.user;
+  if (!user) {
+    res.render('user/sign-up',
+        {});
+  } else {
+    res.redirect('/');
+  }
+});
+
+router.post('/sign-up', (req, res) => {
+  const user = req.session.user;
+  if (!user) {
+    const validation = {};
+    const {username, email, password, confirmPassword} = req.body;
+    if (!username || username === '') {
+      validation.username = 'Username required';
+      validation.error = true;
+    }
+    if (!email || email === '') {
+      validation.email = 'Email required';
+      validation.error = true;
+    }
+    if (!password || password === '') {
+      validation.password = 'Password required';
+      validation.error = true;
+    }
+    if (!confirmPassword || confirmPassword === '') {
+      validation.confirmPassword = 'Confirm password';
+      validation.error = true;
+    }
+    if ( password != confirmPassword) {
+      validation.confirmPassword = 'Passwords don\'t match';
+      validation.error = true;
+    }
+    if (validation.error) {
+      console.log(validation);
+      res.render('user/sign-up',
+          {
+            validationSign: validation,
+            signUpValues: req.body,
+          });
+    } else {
+      const url = `${process.env.URL}/users`;
+      const newUser = new User(0, username, email, password);
+      const json = newUser.getJson();
+      axios.post(url, json)
+          .then((response) => {
+            res.redirect('/login');
+          }).catch((err) => {
+            validation.email = 'Email or Username already registered';
+            console.log(err);
+            res.render('user/sign-up',
+                {
+                  validationSign: validation,
+                  signUpValues: req.body,
+                });
+          });
+    }
+  } else {
+    res.redirect('/');
+  }
 });
 
 router.get('/account', (req, res) => {
@@ -53,10 +114,7 @@ router.post('/login', (req, res) => {
             .then((response) => {
               req.session.user.id = response.data.id;
               req.session.user.username = response.data.userName;
-              res.render('photo/public',
-                  {
-                    user: req.session.user,
-                  });
+              res.redirect('/account');
             }).catch((err) => {
               console.error(err.status);
               console.error(err.error);
