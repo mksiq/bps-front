@@ -1,5 +1,6 @@
 <div class="container">
-    <br>
+  <br>
+  {{#if message}}<div class="h3 text-center">{{message}}</div> {{/if}}
   <div class="h2 text-center mt-2">Login:</div>
   <form action="/login" method="POST">
     <div class="form-row justify-content-md-center">

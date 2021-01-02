@@ -1,7 +1,7 @@
 {
   "name": "bps-front",
   "version": "1.0.0",
-  "description": "Banana Photo Storage",
+  "description": "Banana Photo Store",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,7 +12,7 @@
   },
   "keywords": [
     "photo",
-    "storage",
+    "store",
     "nodejs"
   ],
   "author": "Maickel Siqueira",

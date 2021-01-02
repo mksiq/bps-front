@@ -56,7 +56,10 @@ router.post('/sign-up', (req, res) => {
       const json = newUser.getJson();
       axios.post(url, json)
           .then((response) => {
-            res.redirect('/login');
+            res.render('user/login',
+                {
+                  message: 'Welcome. You may login now.',
+                });
           }).catch((err) => {
             validation.email = 'Email or Username already registered';
             console.log(err);
