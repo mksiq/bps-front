@@ -15,12 +15,31 @@ router.get('/add/:id', (req, res) => {
   }
   req.session.cart = cart;
   res.redirect('/cart');
-  console.log(cart);
+});
+
+router.get('/remove/:id', (req, res) => {
+  let cart = req.session.cart;
+  if (!cart) {
+    cart = [];
+  }
+  let found = -1;
+  let wasFound = false;
+  // find the positions cart the element in the array
+  for (let index = 0; index < cart.length && !wasFound; index++) {
+    if (cart[index].id == req.params.id) {
+      found = index;
+      wasFound = true;
+    }
+  }
+  if (found != -1) {
+    cart.splice(found, 1);
+  }
+  req.session.cart = cart;
+  res.redirect('/cart');
 });
 
 router.get('/cart', (req, res) => {
   const cart = req.session.cart;
-  console.log(cart);
   const url = `${process.env.URL}/photos/`;
   axios.get(url).then((response) => {
     const photos = response.data.filter((photo) => {
@@ -35,9 +54,15 @@ router.get('/cart', (req, res) => {
         }
       }
     });
-    console.log(photos);
+
+    const total = photos.reduce( (acc, cur) => {
+      return acc + cur.price;
+    }, 0);
+
     res.render('transaction/cart',
         {
+          size: cart.length,
+          total: total,
           cart: cart,
           photos: photos,
         });
