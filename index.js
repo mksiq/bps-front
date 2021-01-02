@@ -10,6 +10,7 @@ import fileUpload from 'express-fileupload';
 import general from './controller/general.js';
 import photoController from './controller/photo.js';
 import userController from './controller/user.js';
+import transactionController from './controller/transaction.js';
 
 dotenv.config({path: './config/keys.env'});
 
@@ -34,7 +35,7 @@ app.use(session({
   saveUninitialized: true,
 }));
 
-app.use((req, res ,next)=>{
+app.use((req, res, next)=>{
   res.locals.user = req.session.user;
   next();
 });
@@ -59,6 +60,7 @@ function onHttpStart() {
 app.use('/', general);
 app.use('/', photoController);
 app.use('/', userController);
+app.use('/', transactionController);
 
 app.use(express.static('resources'));
 
