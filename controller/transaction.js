@@ -54,22 +54,41 @@ router.get('/cart', (req, res) => {
         }
       }
     });
-
     const total = photos.reduce( (acc, cur) => {
       return acc + cur.price;
     }, 0);
-
     res.render('transaction/cart',
         {
           size: cart.length,
           total: total,
           cart: cart,
           photos: photos,
+          user: req.session.user,
         });
   }).catch((err) => {
     res.redirect('/');
     console.error(err);
   });
 });
+
+router.post('/checkout', (req, res) => {
+  const user = req.session.user;
+  const cart = req.session.cart;
+  if (user && cart) {
+    const url = `${process.env.URL}/transactions`;
+    const token = req.session.user.token;
+    cart.reduce( async (previousInsertion, photo) => {
+      await previousInsertion;
+      const transaction = new Transaction(photo.id);
+      const json = transaction.getJson();
+      return axios.post(url, json, {headers: {'Authorization': token}});
+    }, Promise.resolve());
+
+    cart = [];
+  } else {
+    res.redirect('/');
+  }
+});
+
 
 export default router;

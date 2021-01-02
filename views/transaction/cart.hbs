@@ -32,7 +32,6 @@
       <br>
       <div class="p text-center">Please add some</div>
       {{/if}}
-
     </div>
     <div class="col-12 col-md-3">
       <div class="container">
@@ -45,11 +44,21 @@
             <h5 class="card-title text-right">CAD$ {{total}}</h5>
             <hr>
             <div class="row ">
-              <div class="container d-flex justify-content-between">
-                <form action="/checkout" method="POST">
-                  <input type="text" name="id" hidden>
-                  <input type="submit" class="btn btn-success form-control" value="Checkout!">
-                </form>
+              <div class="container text-center">
+                {{#if cart}}
+                  {{#if user}}
+                  <form action="/checkout" method="POST">
+                    <input type="text" name="id" hidden>
+                    <input type="submit" class="btn btn-success form-control"  value="Checkout!">
+                  </form>
+                  {{else}}
+                  <div class="p">To checkout you must login.</div>
+                  <br>
+                  <div class="p">
+                    <a href="/login" class="btn btn-success">Login</a>
+                  </div>
+                  {{/if}}
+                {{/if}}
               </div>
             </div>
           </div>
