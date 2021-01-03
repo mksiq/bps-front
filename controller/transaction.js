@@ -77,18 +77,32 @@ router.post('/checkout', (req, res) => {
   if (user && cart) {
     const url = `${process.env.URL}/transactions`;
     const token = req.session.user.token;
-    cart.reduce( async (previousInsertion, photo) => {
-      await previousInsertion;
+
+    // cart.reduce( async (previousInsertion, photo) => {
+    //   await previousInsertion;
+    //   const transaction = new Transaction(photo.id);
+    //   const json = transaction.getJson();
+    //   return axios.post(url, json, {headers: {'Authorization': token}});
+    // }, Promise.resolve());
+
+    /** Generates one promise per cart item */
+    Promise.all( cart.map( (photo) => {
       const transaction = new Transaction(photo.id);
       const json = transaction.getJson();
       return axios.post(url, json, {headers: {'Authorization': token}});
-    }, Promise.resolve());
+    })).then( (response) => {
+      req.session.cart = [];
 
-    cart = [];
+      res.render('/checked', {
+        username: user.username,
+      });
+    }).catch( (error) => {
+      console.log(error);
+      res.redirect('/');
+    });
   } else {
     res.redirect('/');
   }
 });
-
 
 export default router;
