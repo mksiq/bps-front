@@ -1,25 +1,21 @@
 <div class="container">
-    <div class="h2 text-center">Public Pictures</div>
-    <div class="row">
-        <div class="col-12 col-md-6">
-            <div class="card">
-                <img class="card-img-top" src="https://bps-photos-maickel.s3.amazonaws.com/th_photo_1.jpg" alt="Lonely Banana">
-                <div class="card-body text-center">
-                    <h5 class="card-title text-center">Lonely Banana</h5>
-                    <p class="card-text small text-center">Size 5827x3602 | Downloads: 0 | Credits: 5</p>
-                    <a href="#" class="btn btn-primary">Get it!</a>
-                </div>
-            </div>
-        </div>
-            <div class="col-12 col-md-6">
-            <div class="card">
-                <img class="card-img-top" src="temp/banana.jpg" alt="Lonely Banana">
-                <div class="card-body text-center">
-                    <h5 class="card-title text-center">Lonely Banana</h5>
-                    <p class="card-text small text-center">Size 5827x3602 | Downloads: 0 | Credits: 5</p>
-                    <a href="#" class="btn btn-primary">Get it!</a>
-                </div>
-            </div>
-        </div>                
-    </div>
+    <br>
+    <br>
+
+    <br>
+    <div class="lead text-center"> Welcome to the Banana Photo Store.</div>
+    <br>
+    <div class="lead text-center" id="message">Its backend is sleeping. Wait a moment for it to wake up.</div>
+    <br>
+    <br>
 </div>
+<script>
+    fetch('https://bsp-backend.herokuapp.com/tags', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => {
+        const message = document.getElementById('message');
+        message.innerHTML = 'Its server has awakened. You may use this website now.'
+    })
+</script>
