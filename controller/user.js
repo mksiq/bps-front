@@ -88,8 +88,18 @@ router.get('/account', (req, res) => {
          photo.fileName.substring(slashIndex + 1, photo.fileName.length);
         return photo;
       });
+      const {userName: username, boughtTransactions, soldTransactions} = response.data;
+      const spent = boughtTransactions.reduce( (acc, cur) => acc + cur.listPrice, 0);
+      const received = soldTransactions.reduce( (acc, cur) => acc + cur.listPrice, 0);
+      const balance = received - spent;
       res.render('user/account',
           {
+            spent: spent,
+            earned: received,
+            username: username,
+            sold: soldTransactions,
+            bought: boughtTransactions,
+            balance: balance,
             photos: photos,
           });
     }).catch((err) => console.error(err));

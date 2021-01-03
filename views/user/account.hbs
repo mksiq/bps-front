@@ -24,47 +24,78 @@
                 <th class="col-2 "><img src="{{fileName}}" alt="Title: {{title}}" class="img-thumbnail"></th>
                 <th class="col-6 col-md-4 "> {{title}}</th>
                 <th class="col-2 ">{{downloads}}</th>
-                <th class="col-2 ">{{price}}</th>
+                <th class="col-2 ">{{#moneyFixed}}{{price}}{{/moneyFixed}}</th>
                 <th class="col-2 "><a href="/photo/manage/{{id}}" class="btn btn-primary">Manage</a></th>
               </tr>
               {{/each}}
             </tbody>
           </table>
           {{else}}
-            <br>
-            <h2 class="text-center">You don't have any Photos.</h2>
-            <h2 class="text-center">Publish some.</h2>
+          <br>
+          <h2 class="text-center">You don't have any Photos.</h2>
+          <h2 class="text-center">Publish some.</h2>
           {{/if}}
 
 
-          {{#if photosBought}}
-          <div class="h3 text-center">Photos owned by you</div>
+          {{#if bought}}
+          <div class="h3 text-center">Photos bought by you</div>
           <table class="table table-hover">
             <thead>
               <tr class="row">
                 <th class="col-2 ">Thumbnail</th>
                 <th class="col-6 col-md-4 ">Title</th>
-                <th class="col-2 ">Downloads</th>
-                <th class="col-2 ">Price</th>
-                <th class="col-2 ">Manage</th>
+                <th class="col-2 ">Date</th>
+                <th class="col-2 ">Paid</th>
+                <th class="col-2 ">Action </th>
               </tr>
             </thead>
             <tbody>
-              {{#each photosBought}}
+              {{#each bought}}
               <tr class="row ">
-                <th class="col-2 "><img src="{{fileName}}" alt="Title: {{title}}" class="img-thumbnail"></th>
-                <th class="col-6 col-md-4 "> {{title}}</th>
-                <th class="col-2 ">{{downloads}}</th>
-                <th class="col-2 ">{{price}}</th>
+                <th class="col-2 "><img src="{{photo.fileName}}" alt="Title: {{title}}" class="img-thumbnail"></th>
+                <th class="col-6 col-md-4 "> {{photo.title}}</th>
+                <th class="col-2 ">{{date}}</th>
+                <th class="col-2 ">{{#moneyFixed}}{{listPrice}}{{/moneyFixed}}</th>
+                <th class="col-2 "><a href="{{photo.fileName}}" class="btn btn-primary" download="{{photo.title}}">Download</a></th>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+          {{else}}
+          <br>
+          <h2 class="text-center">You didn't buy any Photos.</h2>
+          <h2 class="text-center">Buy some.</h2>
+          {{/if}}
+
+          <br>
+          {{#if sold}}
+          <div class="h3 text-center">Photos sold by you</div>
+          <table class="table table-hover">
+            <thead>
+              <tr class="row">
+                <th class="col-2 ">Thumbnail</th>
+                <th class="col-6 col-md-4 ">Title</th>
+                <th class="col-2 ">Date</th>
+                <th class="col-2 ">Paid</th>
+                <th class="col-2 ">Download </th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each sold}}
+              <tr class="row ">
+                <th class="col-2 "><img src="{{photo.fileName}}" alt="Title: {{title}}" class="img-thumbnail"></th>
+                <th class="col-6 col-md-4 "> {{photo.title}}</th>
+                <th class="col-2 ">{{date}}</th>
+                <th class="col-2 ">{{#moneyFixed}}{{listPrice}}{{/moneyFixed}}</th>
                 <th class="col-2 "><a href="/photo/manage/{{id}}" class="btn btn-primary">Manage</a></th>
               </tr>
               {{/each}}
             </tbody>
           </table>
           {{else}}
-            <br>
-            <h2 class="text-center">You didn't buy any Photos.</h2>
-            <h2 class="text-center">Buy some.</h2>
+          <br>
+          <h2 class="text-center">You didn't sell any Photos.</h2>
+          <h2 class="text-center">Sell some.</h2>
           {{/if}}
 
         </div>
@@ -76,15 +107,13 @@
               Account Summary
             </div>
             <div class="card-body">
-              <p class="card-text text-muted">Total (1)</p>
-              <h5 class="card-title text-right">CAD$ 11.00</h5>
-              <hr>
-              <div class="row ">
-                <div class="container d-flex justify-content-between">
-                  <a href="/user/cash-out" class="btn btn-success">Cash out</a>
-                  <a href="/user/add-balance" class="btn btn-danger">Add</a>
-                </div>
-              </div>
+              <p class="card-text text-muted mb-0">Sold</p>
+              <p class="card-text text-muted text-right mb-0">+ {{#moneyFixed}}{{earned}}{{/moneyFixed}}</p>
+              <p class="card-text text-muted mb-0">Bought</p>
+              <p class="card-text text-muted text-right mb-0">- {{#moneyFixed}}{{spent}}{{/moneyFixed}}</p>
+              <hr class="mb-1 mt-1">
+              <p class="card-text text-muted mb-0">Balance</p>
+              <h5 class="card-title text-right">CAD$ {{#moneyFixed}}{{balance}}{{/moneyFixed}}</h5>
             </div>
           </div>
         </div>
