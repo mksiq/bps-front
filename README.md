@@ -1,1 +1,1 @@
-#Banana Photo Storage
+#Banana Photo Store

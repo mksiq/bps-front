@@ -41,34 +41,38 @@ router.get('/remove/:id', (req, res) => {
 router.get('/cart', (req, res) => {
   const cart = req.session.cart;
   const url = `${process.env.URL}/photos/`;
-  axios.get(url).then((response) => {
-    const photos = response.data.filter((photo) => {
-      for (let index = 0; index < cart.length; index++) {
-        if (photo.id == cart[index].id) {
-          /** Replace picture by its thumbnail */
-          const slashIndex = photo.fileName.lastIndexOf('/');
-          photo.fileName = photo.fileName.substring(0, slashIndex + 1) +
-           'th_' +
-           photo.fileName.substring(slashIndex + 1, photo.fileName.length);
-          return photo;
+  if (cart) {
+    axios.get(url).then((response) => {
+      const photos = response.data.filter((photo) => {
+        for (let index = 0; index < cart.length; index++) {
+          if (photo.id == cart[index].id) {
+            /** Replace picture by its thumbnail */
+            const slashIndex = photo.fileName.lastIndexOf('/');
+            photo.fileName = photo.fileName.substring(0, slashIndex + 1) +
+            'th_' +
+            photo.fileName.substring(slashIndex + 1, photo.fileName.length);
+            return photo;
+          }
         }
-      }
+      });
+      const total = photos.reduce( (acc, cur) => {
+        return acc + cur.price;
+      }, 0);
+      res.render('transaction/cart',
+          {
+            size: cart.length,
+            total: total,
+            cart: cart,
+            photos: photos,
+            user: req.session.user,
+          });
+    }).catch((err) => {
+      res.redirect('/');
+      console.error(err);
     });
-    const total = photos.reduce( (acc, cur) => {
-      return acc + cur.price;
-    }, 0);
-    res.render('transaction/cart',
-        {
-          size: cart.length,
-          total: total,
-          cart: cart,
-          photos: photos,
-          user: req.session.user,
-        });
-  }).catch((err) => {
+  } else {
     res.redirect('/');
-    console.error(err);
-  });
+  }
 });
 
 router.post('/checkout', (req, res) => {
@@ -93,7 +97,7 @@ router.post('/checkout', (req, res) => {
     })).then( (response) => {
       req.session.cart = [];
 
-      res.render('/checked', {
+      res.render('transaction/checked', {
         username: user.username,
       });
     }).catch( (error) => {
