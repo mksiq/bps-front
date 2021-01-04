@@ -23,8 +23,13 @@ class Photo {
     this.downloads = 0;
     this.title = title;
     this.user = {id: userId};
-    // creates an array tags object out of a string
-    const tags = tagsString.split(/[ ,\.#]/);
+    // creates an set of tags object out of a string
+    let tags = tagsString.split(/[ ,\.#]/);
+    if (tags) {
+      tags = tags.toLowerCase();
+      tags = tags.split(/[ ,\.#]/);
+      tags = new Set(tags);
+    }
     this.tags = [];
     tags.forEach((tag) => this.tags.push({tag: tag}));
   }

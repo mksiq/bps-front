@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="h2 text-center">Picture with Tags: {{tags}} </div>
+  <div class="row h-100">
+    {{#each photos}}
+    <div class="col-12 col-md-6 pt-4 d-flex align-items-stretch">
+      <div class="card h-100 shadow">
+        <img class="card-img-top" src="{{fileName}}" alt="Picture: {{title}}">
+        <span class="small text-muted text-right mr-4">Uploaded by {{user.userName}} </span>
+        <div class="card-body text-center pt-0">
+          <h5 class="card-title text-center">{{title}}</h5>
+          <p class="card-text small text-center">Size {{width}}x{{height}} | Downloads: {{downloads}} | CAD$ {{price}}
+          </p>
+          <a href="add/{{id}}" class="btn btn-primary">Get it!</a>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{#unless photos}}
+  <br>
+  <div class="lead text-center">No photos found with those tags</div>
+  {{/unless}}
+</div>

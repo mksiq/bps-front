@@ -11,6 +11,7 @@ import general from './controller/general.js';
 import photoController from './controller/photo.js';
 import userController from './controller/user.js';
 import transactionController from './controller/transaction.js';
+import tagController from './controller/tag.js';
 
 dotenv.config({path: './config/keys.env'});
 
@@ -62,6 +63,7 @@ app.use('/', general);
 app.use('/', photoController);
 app.use('/', userController);
 app.use('/', transactionController);
+app.use('/', tagController);
 
 app.use(express.static('resources'));
 
