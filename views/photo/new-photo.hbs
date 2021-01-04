@@ -1,6 +1,11 @@
 <div class="container">
   <br>
   <div class="h2 text-center mt-2">Insert new photo:</div>
+  <br>
+  <div class="text-muted text-center">
+    Please don't upload very large images. It may cause a time out in the backend server when it reduces the image size.
+  </div>
+  <br>
   <form action="/insert-photo" method="POST" enctype="multipart/form-data">
     <div class="form-row">
       <div class="col-12 col-md-6">
