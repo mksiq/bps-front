@@ -40,6 +40,7 @@ router.get('/remove/:id', (req, res) => {
 
 router.get('/cart', (req, res) => {
   const cart = req.session.cart;
+  const user = req.session.user;
   const url = `${process.env.URL}/photos/`;
   if (cart) {
     axios.get(url).then((response) => {
@@ -60,6 +61,8 @@ router.get('/cart', (req, res) => {
       }, 0);
       res.render('transaction/cart',
           {
+            username: user.username,
+            email: user.email,
             size: cart.length,
             total: total,
             cart: cart,
@@ -79,16 +82,24 @@ router.post('/checkout', (req, res) => {
   const user = req.session.user;
   const cart = req.session.cart;
   if (user && cart) {
+    // Decided not to include stripe payments for now
+    // const {card, expire, cvv} = req.body;
+    // console.log(card, expire , cvv);
+    // const validation = {};
+    // if (isNaN(card)) {
+    //   validation.error = true;
+    //   validation.card = 'Invalid card number';
+    // }
+    // if (isNaN(expire)) {
+    //   validation.error = true;
+    //   validation.card = 'Invalid Expiration number';
+    // }
+    // if (isNaN(cvv)) {
+    //   validation.error = true;
+    //   validation.card = 'Invalid CVV number';
+    // }
     const url = `${process.env.URL}/transactions`;
     const token = req.session.user.token;
-
-    // cart.reduce( async (previousInsertion, photo) => {
-    //   await previousInsertion;
-    //   const transaction = new Transaction(photo.id);
-    //   const json = transaction.getJson();
-    //   return axios.post(url, json, {headers: {'Authorization': token}});
-    // }, Promise.resolve());
-
     /** Generates one promise per cart item */
     Promise.all( cart.map( (photo) => {
       const transaction = new Transaction(photo.id);

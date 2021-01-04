@@ -20,7 +20,7 @@
           <tr class="row ">
             <th class="col-4 col-md-2 "><img src="{{fileName}}" alt="Title: {{title}}" class="img-thumbnail"></th>
             <th class="d-none d-md-block col-4 "> {{title}}</th>
-            <th class="col-4 col-md-2 ">{{price}}</th>
+            <th class="col-4 col-md-2 ">{{#moneyFixed}}{{price}}{{/moneyFixed}}</th>
             <th class="col-4 col-md-2 "><a href="/remove/{{id}}" class="btn btn-danger">Remove</a></th>
           </tr>
           {{/each}}
@@ -41,26 +41,59 @@
           </div>
           <div class="card-body">
             <p class="card-text text-muted">Total ({{size}})</p>
-            <h5 class="card-title text-right">CAD$ {{total}}</h5>
+            <h5 class="card-title text-right">CAD$ {{#moneyFixed}}{{total}}{{/moneyFixed}}</h5>
             <hr>
             <div class="row ">
               <div class="container text-center">
                 {{#if cart}}
-                  {{#if user}}
-                  <form action="/checkout" method="POST">
-                    <input type="text" name="id" hidden>
-                    <input type="submit" class="btn btn-success form-control"  value="Checkout!">
-                  </form>
-                  {{else}}
-                  <div class="p">To checkout you must login.</div>
-                  <br>
-                  <div class="p">
-                    <a href="/login" class="btn btn-success">Login</a>
+                {{#if user}}
+                <form action="/checkout" method="POST">
+                  <input type="text" name="id" hidden>
+                  <div class="form-row justify-content-md-center">
+                    <div class="col-12">
+                      <div class="form-group">
+                        <label for="card" class="small">Credit card</label>
+                        <input class="form-control" type="text" name="card" size="30" placeholder="Enter credit card"
+                          disabled />
+                      </div>
+                    </div>
+                    <div class="col-6 ">
+                      <div class="form-group">
+                        <label for="expire" class="small">Exp. MMYY</label>
+                        <input class="form-control" type="text" name="expire" size="4" placeholder="1221" disabled />
+                      </div>
+                    </div>
+                    <div class="col-6 ">
+                      <div class="form-group">
+                        <label for="cvv" class="small">CVV</label>
+                        <input class="form-control" type="text" name="cvv" size="3" placeholder="000" disabled />
+                      </div>
+                    </div>
+                    <hr>
                   </div>
-                  {{/if}}
+                  <div class="row justify-content-md-center">
+                    <div class="col-12">
+                      <input type="submit" class="btn btn-warning form-control" 
+                        value="Order. CAD$ {{#moneyFixed}}{{total}}{{/moneyFixed}}">
+                      <br>
+                    </div>
+                  </div>
+                </form>
+                {{else}}
+                <div class="p">To checkout you must login.</div>
+                <br>
+                <div class="p">
+                  <a href="/login" class="btn btn-success">Login</a>
+                </div>
+                {{/if}}
                 {{/if}}
               </div>
             </div>
+          </div>
+          <br>
+
+          <div class="container">
+
           </div>
         </div>
       </div>
