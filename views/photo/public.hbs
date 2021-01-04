@@ -8,7 +8,7 @@
         <span class="small text-muted text-right mr-4">Tags: {{tags}} &nbsp; Uploaded by {{user.userName}} </span>
         <div class="card-body text-center pt-0">          
           <h5 class="card-title text-center">{{title}}</h5>
-          <p class="card-text small text-center">Size {{width}}x{{height}} | Downloads: {{downloads}} | CAD$ {{price}}</p>
+          <p class="card-text small text-center">Size {{width}}x{{height}} | Downloads: {{downloads}} | CAD$ {{#moneyFixed}}{{price}}{{/moneyFixed}}</p>
           <a href="add/{{id}}" class="btn btn-primary">Get it!</a> 
         </div>
       </div>
