@@ -26,8 +26,6 @@ class Photo {
     // creates an set of tags object out of a string
     let tags = tagsString.split(/[ ,\.#]/);
     if (tags) {
-      tags = tags.toLowerCase();
-      tags = tags.split(/[ ,\.#]/);
       tags = new Set(tags);
     }
     this.tags = [];

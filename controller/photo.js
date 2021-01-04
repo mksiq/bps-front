@@ -104,9 +104,15 @@ router.post('/insert-photo', (req, res) => {
                 })
                 .then((resp) => {
                   res.redirect('/account');
-                }).catch((err) => console.log(err));
+                }).catch((err) => {
+                  console.log(err);
+                  res.redirect('/account');
+                });
           });
-        }).catch((err) => console.log(err));
+        }).catch((err) => {
+          console.log(err);
+          res.redirect('/account');
+        });
   } else {
     res.redirect('/');
   }
